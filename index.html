@@ -1,12 +1,313 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>TMAI - TimeMachine AI</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TMAI | TimeMachine AI Lab</title>
+  <meta name="description" content="TMAI（TimeMachine AI Lab）は、中小企業の業務改善・DX・AI活用を“最短距離”で実現します。" />
+
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#0f1733;
+      --text:#e9ecf5;
+      --muted:#a9b1c9;
+      --line:rgba(255,255,255,.12);
+      --brand:#6ae4ff;
+      --brand2:#a78bfa;
+      --shadow:0 20px 60px rgba(0,0,0,.45);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", "Yu Gothic", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1000px 600px at 15% 10%, rgba(106,228,255,.18), transparent 60%),
+        radial-gradient(900px 500px at 80% 20%, rgba(167,139,250,.18), transparent 60%),
+        radial-gradient(1100px 700px at 50% 110%, rgba(106,228,255,.12), transparent 60%),
+        linear-gradient(180deg, #070a14 0%, var(--bg) 100%);
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:22px 18px 60px}
+    header{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      padding:12px 2px;
+    }
+    .logo{
+      display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.02em;
+    }
+    .mark{
+      width:38px;height:38px;border-radius:12px;
+      background: linear-gradient(135deg,var(--brand),var(--brand2));
+      box-shadow: 0 10px 30px rgba(106,228,255,.15);
+    }
+    .nav{display:flex;gap:16px;color:var(--muted);font-weight:600;font-size:14px}
+    .nav a{padding:10px 12px;border-radius:12px}
+    .nav a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 14px;border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      font-weight:700;font-size:14px;
+    }
+    .btn.primary{
+      border:none;
+      background: linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#081023;
+      box-shadow: 0 18px 60px rgba(106,228,255,.18);
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .hero{
+      margin-top:28px;
+      display:grid;grid-template-columns: 1.2fr .8fr;gap:18px;
+      align-items:stretch;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .heroMain{
+      padding:30px 28px 26px;
+      position:relative;
+    }
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      background: rgba(106,228,255,.12);
+      border:1px solid rgba(106,228,255,.25);
+      color: #dffbff;
+      font-weight:700;
+      font-size:13px;
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:44px;
+      line-height:1.1;
+      letter-spacing:-.02em;
+    }
+    .lead{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.9;
+      max-width:58ch;
+    }
+    .ctaRow{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .mini{
+      margin-top:16px;
+      display:flex;gap:18px;flex-wrap:wrap;
+      color:var(--muted);font-size:13px
+    }
+    .mini b{color:var(--text)}
+    .heroSide{
+      padding:18px;
+      display:flex;flex-direction:column;gap:14px;
+    }
+    .sideBox{
+      padding:16px;border-radius:16px;
+      background:rgba(0,0,0,.18);
+      border:1px solid var(--line);
+    }
+    .sideTitle{font-weight:800;margin:0 0 8px}
+    .sideText{margin:0;color:var(--muted);line-height:1.8;font-size:14px}
+    .grid{
+      margin-top:18px;
+      display:grid;grid-template-columns: repeat(3,1fr);gap:14px;
+    }
+    .tile{
+      padding:18px 16px;border-radius:16px;
+      background: rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      transition:.15s ease;
+    }
+    .tile:hover{transform: translateY(-2px);background: rgba(255,255,255,.07)}
+    .kicker{color:#dffbff;font-weight:800;font-size:13px}
+    .tile h3{margin:8px 0 6px;font-size:17px}
+    .tile p{margin:0;color:var(--muted);line-height:1.8;font-size:14px}
+    section{
+      margin-top:28px;
+      padding:22px 22px;
+    }
+    .sectionTitle{
+      display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
+      margin-bottom:14px
+    }
+    .sectionTitle h2{margin:0;font-size:22px}
+    .sectionTitle span{color:var(--muted);font-size:13px}
+    .list{
+      display:grid;grid-template-columns: repeat(2,1fr);gap:12px;
+    }
+    .item{
+      padding:16px;border-radius:16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .item b{display:block;margin-bottom:6px}
+    .item small{color:var(--muted);line-height:1.7}
+    footer{
+      margin-top:26px;
+      color:var(--muted);
+      font-size:13px;
+      display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      padding:18px 2px 0;
+      border-top:1px solid rgba(255,255,255,.10);
+    }
+    .tag{padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04)}
+    @media (max-width: 860px){
+      h1{font-size:36px}
+      .hero{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      .list{grid-template-columns:1fr}
+      .nav{display:none}
+    }
+  </style>
 </head>
+
 <body>
-  <h1>TMAI</h1>
-  <p>TimeMachine AI Lab</p>
-  <p>AIで、中小企業の未来を変える。</p>
+  <div class="wrap">
+    <header>
+      <div class="logo">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <div style="font-size:14px;color:var(--muted);font-weight:800;letter-spacing:.08em;">TMAI</div>
+          <div style="font-size:16px;font-weight:900;">TimeMachine AI Lab</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="site">
+        <a href="#services">サービス</a>
+        <a href="#work">できること</a>
+        <a href="#contact">お問い合わせ</a>
+      </nav>
+
+      <a class="btn" href="#contact">相談する</a>
+    </header>
+
+    <div class="hero">
+      <div class="card heroMain">
+        <div class="badge">AI × DX で “最短距離” の業務改善</div>
+        <h1>AIで、中小企業の未来を変える。</h1>
+        <p class="lead">
+          TMAIは、現場の課題をヒアリングし、<b>すぐ使えるAI・自動化</b>に落とし込みます。<br>
+          まずは「何がムダか」「どこが詰まっているか」を一緒に可視化し、最小の投資で成果を出します。
+        </p>
+
+        <div class="ctaRow">
+          <a class="btn primary" href="#contact">無料で相談する</a>
+          <a class="btn" href="#services">サービスを見る</a>
+        </div>
+
+        <div class="mini">
+          <div>⚡ <b>最短1週間</b>でPoC</div>
+          <div>🧩 <b>現場運用</b>まで伴走</div>
+          <div>🔒 <b>セキュリティ</b>も設計</div>
+        </div>
+      </div>
+
+      <div class="card heroSide">
+        <div class="sideBox">
+          <p class="sideTitle">まず作るのは、3つの型</p>
+          <p class="sideText">
+            ① 問い合わせ・申込の導線<br>
+            ② 事例/実績（小さくてもOK）<br>
+            ③ 相談窓口（フォーム/LINE等）
+          </p>
+        </div>
+        <div class="sideBox">
+          <p class="sideTitle">公開中</p>
+          <p class="sideText">
+            ドメイン：<b>tmai.jp</b><br>
+            ホスティング：<b>Vercel</b><br>
+            更新：<b>GitHubにCommit</b>で反映
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" id="services">
+      <div class="tile">
+        <div class="kicker">DX / 業務改善</div>
+        <h3>ムダを削って、時間を取り戻す</h3>
+        <p>業務フローの棚卸し→改善案→運用まで。小さく始めて確実に効かせます。</p>
+      </div>
+      <div class="tile">
+        <div class="kicker">AI活用</div>
+        <h3>社内に“使えるAI”を実装</h3>
+        <p>ChatGPT活用、FAQ/RAG、文章作成、要約、議事録、社内ナレッジ整備など。</p>
+      </div>
+      <div class="tile">
+        <div class="kicker">自動化 / RPA</div>
+        <h3>面倒な入力・転記・確認を自動化</h3>
+        <p>GAS/Python/Power Automate Desktopなど、環境に合わせて最適化します。</p>
+      </div>
+    </div>
+
+    <section class="card" id="work">
+      <div class="sectionTitle">
+        <h2>できること（例）</h2>
+        <span>まずはここから作り込みます</span>
+      </div>
+      <div class="list">
+        <div class="item">
+          <b>AIチャット導入（社内・顧客向け）</b>
+          <small>よくある質問・規程・商品資料をまとめ、問い合わせ対応を高速化。</small>
+        </div>
+        <div class="item">
+          <b>業務の自動化（入力/転記/チェック）</b>
+          <small>Excel/Google Workspace/基幹システムの手作業を削減。</small>
+        </div>
+        <div class="item">
+          <b>フォーム → 台帳 → 通知 の仕組み化</b>
+          <small>申込/アンケート/見積の流れを、1本のパイプラインに。</small>
+        </div>
+        <div class="item">
+          <b>Web発信・販売ページの整備</b>
+          <small>“アプリ置き場”やDX情報発信、簡易販売導線の構築。</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="contact">
+      <div class="sectionTitle">
+        <h2>お問い合わせ</h2>
+        <span>まずは内容だけでもOK</span>
+      </div>
+
+      <!-- ここは暫定：メールリンク。後でGoogleフォーム等に差し替えできます -->
+      <div class="list" style="grid-template-columns: 1fr;">
+        <div class="item">
+          <b>相談はこちら</b>
+          <small>
+            まだフォームが無いので、いったんメールリンクにしています。後でフォーム/LINEに変えましょう。<br><br>
+            <a class="btn primary" href="mailto:info@tmai.jp?subject=TMAI%20%E7%9B%B8%E8%AB%87&body=%E3%81%94%E7%9B%B8%E8%AB%87%E5%86%85%E5%AE%B9%EF%BC%9A%0A%0A%E4%BC%9A%E7%A4%BE%E5%90%8D%EF%BC%9A%0A%E3%81%8A%E5%90%8D%E5%89%8D%EF%BC%9A%0A%E9%80%A3%E7%B5%A1%E5%85%88%EF%BC%9A%0A">
+              メールで相談する
+            </a>
+            <span class="tag">フォームは次で追加</span>
+          </small>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="y"></span> TMAI / TimeMachine AI Lab</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <span class="tag">AI</span>
+        <span class="tag">DX</span>
+        <span class="tag">Automation</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
